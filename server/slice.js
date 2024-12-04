@@ -17,7 +17,6 @@ async function sliceModel(input_file) {
         { encoding: "utf-8" }
     );
 
-    console.log(`${slicerPath}/prusa-slicer -g --output ${outputPath} ${filePath}/${input_file} --load settings.ini`);
     async function analyze(outputPath) {
         return new Promise(function (resolve, reject) {
             var duration = "";
@@ -96,7 +95,7 @@ async function sliceModel(input_file) {
     return new Promise(function (resolve, reject) {
         getResults().then(x => {
             resolve(x)
-            // cleanUp();
+            cleanUp();
         })
     })
     
