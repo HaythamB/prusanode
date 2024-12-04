@@ -1,3 +1,12 @@
-!# /bin/bash
+#! /bin/bash
 apt-get update && apt-get upgrade -y
 apt-get install -y nodejs npm
+
+cd /
+git clone https://github.com/HaythamB/prusanode.git
+
+mkdir /server
+cp -r /prusanode/server /server
+cd /server
+npm install
+npm run dev
