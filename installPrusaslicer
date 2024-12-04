@@ -1,0 +1,39 @@
+!#/bin/bash
+
+sudo apt-get install -y \
+    git \
+    build-essential \
+    autoconf \
+    cmake \
+    libglu1-mesa-dev \
+    libgtk-3-dev \
+    libdbus-1-dev \
+    libwebkit2gtk-4.0-dev
+
+cd /
+git clone https://www.github.com/prusa3d/PrusaSlicer
+cd PrusaSlicer
+
+cd deps
+mkdir build
+cd build
+cmake .. -DDEP_WX_GTK3=ON
+make
+cd ../..
+mkdir build
+cd build
+cmake .. -DSLIC3R_STATIC=1 -DSLIC3R_GTK=3 -DSLIC3R_PCH=OFF -DCMAKE_PREFIX_PATH=$(pwd)/../deps/build/destdir/usr/local
+make -j4
+cd /
+
+mv PrusaSlicer/ PrusaSlicerSrc/
+mkdir /PrusaSlicer
+mv /PrusaSlicerSrc/build/src /PrusaSlicer
+rm -r /PrusaSlicerSrc
+
+mkdir /models
+cd /models
+wget https://files.printables.com/media/prints/3161/stls/123914_1f1d8ca1-252a-4770-846f-52f1208d193d/3dbenchy.stl
+
+cd /PrusaSlicer
+./prusa-slicer --info /models/3dbenchy.stl
