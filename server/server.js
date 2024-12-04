@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
 
 app.post("/slice", upload.single("uploaded_file"), (req, res) => {
     sliceModel(req.file.filename).then(x => {
+        console.log(`Received ${req.file.filename}: ${x['duration']} - ${x['distance']}`)
         res.json(x)
     });
 });
