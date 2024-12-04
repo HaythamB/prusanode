@@ -1,0 +1,20 @@
+#! /bin/bash
+rm -r /prusanode
+rm -r /server
+
+cd /
+git clone https://github.com/HaythamB/prusanode.git
+
+mkdir /server
+mkdir /server/uploads
+mkdir /server/outputs
+
+cp -r /prusanode/server/* /server/
+cd /server
+npm install
+
+echo ""
+echo ""
+echo "Server installed to /server"
+echo "change your current directory to the root folder /server"
+echo "and then run 'npm run dev' to start development server"
