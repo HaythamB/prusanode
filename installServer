@@ -6,7 +6,12 @@ cd /
 git clone https://github.com/HaythamB/prusanode.git
 
 mkdir /server
-cp -r /prusanode/server /server
+cp -r /prusanode/server/* /server/
 cd /server
 npm install
-npm run dev
+
+echo ""
+echo ""
+echo "Server installed to /server"
+echo "change your current directory to the root folder /server"
+echo "and then run 'npm run dev' to start development server"

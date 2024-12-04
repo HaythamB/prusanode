@@ -7,17 +7,17 @@ const path = require('path');
 const { dirname } = require("path");
 const appDir = dirname(require.main.filename);
 const filePath = `${appDir}/uploads`;
-const slicerPath = "\"C:\\Program Files\\Prusa3D\\PrusaSlicer\\\""
+const slicerPath = "/PrusaSlicer"
 
 
 async function sliceModel(input_file) {
     const outputPath = `${appDir}/outputs/${input_file.split(".")[0]}.gcode`;
     const output = execSync(
-        `${slicerPath}prusa-slicer-console -g --output ${outputPath} ${filePath}/${input_file} --load settings.ini`,
+        `${slicerPath}/prusa-slicer -g --output ${outputPath} ${filePath}/${input_file} --load settings.ini`,
         { encoding: "utf-8" }
     );
 
-    console.log(`${slicerPath}prusa-slicer-console -g --output ${outputPath} ${filePath}/${input_file} --load settings.ini`);
+    console.log(`${slicerPath}/prusa-slicer -g --output ${outputPath} ${filePath}/${input_file} --load settings.ini`);
     async function analyze(outputPath) {
         return new Promise(function (resolve, reject) {
             var duration = "";
