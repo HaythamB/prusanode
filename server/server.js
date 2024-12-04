@@ -9,8 +9,6 @@ const appDir = dirname(require.main.filename);
 
 app.use(express.urlencoded({ extended: false, limit: "50mb" }));
 
-console.log(process.env.NODE_PATH);
-
 const PORT = process.env.PORT || 3000;
 
 const storage = multer.diskStorage({
