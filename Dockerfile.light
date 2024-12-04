@@ -1,0 +1,42 @@
+FROM phusion/baseimage:jammy-1.0.4
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
+
+
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+
+# create PrusaSlicer folder
+# RUN mkdir -p /PrusaSlicer && chown -R node:node /PrusaSlicer
+RUN mkdir -p /PrusaSlicer
+WORKDIR /PrusaSlicer
+#COPY --chown=node:node ./PrusaSlicer/* ./
+COPY ./PrusaSlicer/* ./
+
+# create server folders
+# RUN mkdir -p /server && chown -R node:node /server
+# RUN mkdir -p /server/uploads && chown -R node:node /server/uploads
+# RUN mkdir -p /server/outputs && chown -R node:node /server/outputs
+RUN mkdir /server
+RUN mkdir /server/outputs
+RUN mkdir /server/uploads
+
+WORKDIR /server
+COPY ./server/* ./
+# COPY --chown=node:node . .
+COPY . .
+
+# install node
+RUN apt-get update && apt-get install -y nodejs npm libgtk-3-dev libwebkit2gtk-4.0-dev && apt-get clean && apt-get purge -y && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+#USER node
+RUN npm install
+
+EXPOSE 3000/tcp
+
+RUN mkdir /etc/service/prusanode
+COPY server.sh /etc/service/prusanode/run
+RUN chmod +x /etc/service/prusanode/run
+
+# Clean up
+RUN 

@@ -1,0 +1,11 @@
+FROM haythamb/prusanode:v1
+LABEL version="1.0"
+
+# Generate locale C.UTF-8
+ENV LANG=C.UTF-8
+
+# Expose ports
+EXPOSE 3000/tcp
+
+WORKDIR /server
+CMD ["node", "server.js"]
