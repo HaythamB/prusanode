@@ -6,6 +6,9 @@ cd /
 git clone https://github.com/HaythamB/prusanode.git
 
 mkdir /server
+mkdir /server/uploads
+mkdir /server/outputs
+
 cp -r /prusanode/server/* /server/
 cd /server
 npm install
